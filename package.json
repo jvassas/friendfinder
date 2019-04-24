@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/jvassas/friendfinder/issues"
   },
-  "homepage": "https://github.com/jvassas/friendfinder#readme"
+  "homepage": "https://github.com/jvassas/friendfinder#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  }
 }
