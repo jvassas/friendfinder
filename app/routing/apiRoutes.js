@@ -8,33 +8,37 @@ module.exports = function(app) {
 
     app.post("/api/friends", function(req, res) {
         
+        var friendMatch = {
+            name: "",
+            photo: "",
+            friendDifference: 1000
+        };
+
         var user = req.body;
+        var userAnswers = userData.answers;
 
-        for (var i = 0; i < user.answers.length; i++) {
-            user.answers[i] = parseInt(user.answers[i]);
-        }
+        var totalDifference = 0;
 
-        var matchIndex = 0;
-        var minDifference = 40;
+        for (var i =0; i < friends.length; i++) {
 
-        for (var i = 0; i < friends.length; i++) {
-            var totalDifference = 0;
-            for(var j = 0; j < friends[i].answers.length; j++) {
-                var difference = Math.abs(user.answers[j] - friends[i].answers[j]);
-                totalDifference += difference;
+            console.log(friends[i].name);
+            totalDifference = 0;
+
+            for (var j = 0; j < friends[i].answers[j]; j++) {
+
+                totalDifference += Math.abs(parseInt(userAnswers[j]) - parseInt(friends[i].answers[j]));
+
+                if (totalDifference <= friendMatch.friendDifference) {
+
+                    friendMatch.name = friends[i].name;
+                    friendMatch.photo = friends[i].photo;
+                    friendMatch.friendDifference = totalDifference;
+                }
             }
-
-            if (totalDifference < minDifference) {
-                matchIndex = i;
-                minDifference = totalDifference;
-            }
         }
-
-        friends.push(user);
-
-        res.json(friends[matchIndex]);
-
-
         
+        friends.push(newUser);
+
+        res.json(friendMatch);
     });
 };
